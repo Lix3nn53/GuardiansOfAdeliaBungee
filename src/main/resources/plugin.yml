@@ -1,0 +1,21 @@
+main: io.github.lix3nn53.guardiansofadelia.bungee.GuardiansOfAdeliaBungee
+name: GuardiansOfAdeliaBungee
+version: '0.1'
+description: GuardiansOfAdelia MMORPG project
+load: POSTWORLD
+author: Lix3nn
+website: guardiansofadelia.com
+prefix: GoA-Bungee
+commands:
+  lobby:
+    description: Teleport to lobby server.
+    permission: guardian.player
+    permission-message: You do not have permission!
+  changeserver:
+    description: Teleport to a server.
+    permission: guardian.admin
+    permission-message: You do not have permission!
+  bungeetest:
+    description: Developer test command.
+    permission: guardian.admin
+    permission-message: You do not have permission!
