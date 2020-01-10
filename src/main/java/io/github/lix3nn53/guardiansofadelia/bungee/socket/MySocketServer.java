@@ -2,7 +2,9 @@ package io.github.lix3nn53.guardiansofadelia.bungee.socket;
 
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOServer;
+import io.github.lix3nn53.guardiansofadelia.bungee.BungeeUtils;
 import io.github.lix3nn53.guardiansofadelia.bungee.GuardiansOfAdeliaBungee;
+import net.md_5.bungee.api.ChatColor;
 
 public class MySocketServer {
 
@@ -17,21 +19,18 @@ public class MySocketServer {
         this.server = new SocketIOServer(config);
         this.password = password;
 
-        this.server.addEventListener("purchase", WebPurchase.class, (socketIOClient, webPurchase, ackRequest) -> {
+        this.server.addEventListener("purchase", WebPurchase.class, (socketIOClient, webPurchase, ackRequest) ->
+                GuardiansOfAdeliaBungee.getInstance().getProxy().getScheduler().runAsync(GuardiansOfAdeliaBungee.getInstance(), () -> {
 
-            GuardiansOfAdeliaBungee.getInstance().getProxy().getScheduler().runAsync(GuardiansOfAdeliaBungee.getInstance(), () -> {
+            System.out.println("webPurchase: " + webPurchase.toString());
+            if (webPurchase.getPassword().equals(this.password)) {
+                WebResponse webResponse = RequestHandler.sendWebPurchaseToRPG(webPurchase);
+                System.out.println("webResponse: " + webResponse.toString());
 
-                System.out.println("webPurchase: " + webPurchase.toString());
-                if (webPurchase.getPassword().equals(this.password)) {
-                    WebResponse webResponse = RequestHandler.sendWebPurchaseToRPG(webPurchase);
-                    System.out.println("webResponse: " + webResponse.toString());
+                socketIOClient.sendEvent("purchaseResult", webResponse);
+            }
 
-                    socketIOClient.sendEvent("purchaseResult", webResponse);
-                }
-
-            });
-
-        });
+        }));
     }
 
     public void start() {
