@@ -58,6 +58,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>plugin.yml</include>
+                    <include>socketServer.yml</include>
                 </includes>
             </resource>
         </resources>
@@ -75,6 +76,12 @@
             <groupId>com.corundumstudio.socketio</groupId>
             <artifactId>netty-socketio</artifactId>
             <version>1.7.17</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.7.30</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

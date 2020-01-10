@@ -2,25 +2,35 @@ package io.github.lix3nn53.guardiansofadelia.bungee.socket;
 
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOServer;
+import io.github.lix3nn53.guardiansofadelia.bungee.GuardiansOfAdeliaBungee;
 
 public class MySocketServer {
 
     private final SocketIOServer server;
+    private final String password;
 
-    public MySocketServer(String hostname, int port) {
+    public MySocketServer(String hostname, int port, String password) {
         Configuration config = new Configuration();
         config.setHostname(hostname);
         config.setPort(port);
 
         this.server = new SocketIOServer(config);
+        this.password = password;
 
         this.server.addEventListener("purchase", WebPurchase.class, (socketIOClient, webPurchase, ackRequest) -> {
-            System.out.println("webPurchase: " + webPurchase.toString());
 
-            WebResponse webResponse = RequestHandler.onPurchase(webPurchase);
-            System.out.println("webResponse: " + webResponse.toString());
+            GuardiansOfAdeliaBungee.getInstance().getProxy().getScheduler().runAsync(GuardiansOfAdeliaBungee.getInstance(), () -> {
 
-            socketIOClient.sendEvent("purchaseResult", webResponse);
+                System.out.println("webPurchase: " + webPurchase.toString());
+                if (webPurchase.getPassword().equals(this.password)) {
+                    WebResponse webResponse = RequestHandler.sendWebPurchaseToRPG(webPurchase);
+                    System.out.println("webResponse: " + webResponse.toString());
+
+                    socketIOClient.sendEvent("purchaseResult", webResponse);
+                }
+
+            });
+
         });
     }
 

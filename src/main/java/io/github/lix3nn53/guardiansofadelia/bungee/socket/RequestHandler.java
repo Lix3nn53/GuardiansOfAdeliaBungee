@@ -1,12 +1,15 @@
 package io.github.lix3nn53.guardiansofadelia.bungee.socket;
 
-import io.github.lix3nn53.guardiansofadelia.bungee.BungeeUtils;
 import io.github.lix3nn53.guardiansofadelia.bungee.GuardiansOfAdeliaBungee;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.config.ServerInfo;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.*;
 
 public class RequestHandler {
 
+    private final static String mainServerForRequests = "rpg1";
     private final static HashMap<Integer, WebProduct> productIdToWebProduct = new HashMap<>();
 
     static {
@@ -44,29 +47,29 @@ public class RequestHandler {
 
     }
 
-    public static WebResponse onPurchase(WebPurchase webPurchase) {
-        String minecraftUsername = webPurchase.getMinecraftUsername();
+    public static WebResponse sendWebPurchaseToRPG(WebPurchase webPurchase) {
         int productId = webPurchase.getProductId();
         int payment = webPurchase.getPayment();
+        String minecraftUsername = webPurchase.getMinecraftUsername();
 
-        if (!productIdToWebProduct.containsKey(productId)) {
-            return new WebResponse(false, "No such product1", minecraftUsername, productId);
+        List<String> messages = new ArrayList<>();
+        messages.add(String.valueOf(productId));
+        messages.add(String.valueOf(payment));
+        messages.add(minecraftUsername);
+
+        ServerInfo serverInfo = ProxyServer.getInstance().getServerInfo(mainServerForRequests); //default server
+
+        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(minecraftUsername);
+        if (player != null) {
+            serverInfo = player.getServer().getInfo(); //the server player is on
         }
 
-        WebProduct webProduct = productIdToWebProduct.get(productId);
-        int cost = webProduct.getCost();
+        WebResponse response = (WebResponse) GuardiansOfAdeliaBungee.channelListener.sendThenGet("webPurchase", messages, serverInfo);
 
-        if (cost != payment) {
-            return new WebResponse(false, "No such product2", minecraftUsername, productId);
+        if (response == null) {
+            return new WebResponse(false, "There must be at least 1 player online on <GameServer 1> OR you must be online on a GameServer.", minecraftUsername, productId);
         }
 
-        GuardiansOfAdeliaBungee.getInstance().getLogger().info("Web purchase: " + minecraftUsername + " bought " + webProduct.getProductName() + " for " + payment + " credits!");
-        return new WebResponse(true, "Item purchased successfully!", minecraftUsername, productId);
-    }
-
-    private static void sendWebPurchase(UUID uuid) {
-        String[] args = {"asd", "asdas", "asdasd"};
-
-        BungeeUtils.sendData("rpg1", "webPurchase", args);
+        return response;
     }
 }
