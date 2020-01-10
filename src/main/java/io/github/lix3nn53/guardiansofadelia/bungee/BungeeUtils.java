@@ -51,10 +51,14 @@ public class BungeeUtils {
         return ProxyServer.getInstance().getPlayer("");
     }
 
-    public static void sendData(String serverName) {
+    public static void sendData(String serverName, String subchannel, String[] arguments) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("webPurchase");
-        out.writeUTF("Argument");
+
+        out.writeUTF(subchannel);
+
+        for (String argument : arguments) {
+            out.writeUTF(argument);
+        }
 
         ProxyServer.getInstance().getServerInfo(serverName).sendData("BungeeCord", out.toByteArray(), false);
     }
