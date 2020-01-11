@@ -16,36 +16,44 @@ public class RequestHandler {
 
     static {
         //list of ranks
-        productIdToWebProduct.put(1, new WebProduct(ChatColor.GREEN + "Hero Rank",1));
-        productIdToWebProduct.put(2, new WebProduct(ChatColor.GOLD + "Legend Rank", 1));
-        productIdToWebProduct.put(3, new WebProduct(ChatColor.LIGHT_PURPLE + "Titan Rank", 1));
+        productIdToWebProduct.put(1, new WebProduct(ChatColor.GREEN + "Hero Rank"));
+        productIdToWebProduct.put(2, new WebProduct(ChatColor.GOLD + "Legend Rank"));
+        productIdToWebProduct.put(3, new WebProduct(ChatColor.LIGHT_PURPLE + "Titan Rank"));
 
         //List of items
-        productIdToWebProduct.put(4, new WebProduct(ChatColor.LIGHT_PURPLE + "Weapon/Shield Skin Scroll x1", 1));
-        productIdToWebProduct.put(5, new WebProduct(ChatColor.LIGHT_PURPLE + "Weapon/Shield Skin Scroll x2", 1));
-        productIdToWebProduct.put(6, new WebProduct(ChatColor.LIGHT_PURPLE + "Weapon/Shield Skin Scroll x5", 1));
+        productIdToWebProduct.put(4, new WebProduct(ChatColor.LIGHT_PURPLE + "Weapon/Shield Skin Scroll x1"));
+        productIdToWebProduct.put(5, new WebProduct(ChatColor.LIGHT_PURPLE + "Weapon/Shield Skin Scroll x2"));
+        productIdToWebProduct.put(6, new WebProduct(ChatColor.LIGHT_PURPLE + "Weapon/Shield Skin Scroll x5"));
 
-        productIdToWebProduct.put(7, new WebProduct(ChatColor.YELLOW + "Angel Wings(Helmet Skin)", 1));
-        productIdToWebProduct.put(8, new WebProduct(ChatColor.DARK_PURPLE + "Demon Wings(Helmet Skin)", 1));
-        productIdToWebProduct.put(9, new WebProduct(ChatColor.LIGHT_PURPLE + "Dark Dragon Wings(Helmet Skin)", 1));
-        productIdToWebProduct.put(10, new WebProduct(ChatColor.AQUA + "White Dragon Wings(Helmet Skin)", 1));
-        productIdToWebProduct.put(11, new WebProduct(ChatColor.GOLD + "Golden Crown(Helmet Skin)", 1));
+        productIdToWebProduct.put(7, new WebProduct(ChatColor.YELLOW + "Angel Wings(Helmet Skin)"));
+        productIdToWebProduct.put(8, new WebProduct(ChatColor.DARK_PURPLE + "Demon Wings(Helmet Skin)"));
+        productIdToWebProduct.put(9, new WebProduct(ChatColor.LIGHT_PURPLE + "Dark Dragon Wings(Helmet Skin)"));
+        productIdToWebProduct.put(10, new WebProduct(ChatColor.AQUA + "White Dragon Wings(Helmet Skin)"));
+        productIdToWebProduct.put(11, new WebProduct(ChatColor.GOLD + "Golden Crown(Helmet Skin)"));
 
-        productIdToWebProduct.put(12, new WebProduct(ChatColor.YELLOW + "Bee(Pet Skin)", 1));
-        productIdToWebProduct.put(13, new WebProduct(ChatColor.GOLD + "Red Fox(Pet Skin)", 1));
-        productIdToWebProduct.put(14, new WebProduct(ChatColor.AQUA + "Snow Fox(Pet Skin)", 1));
-        productIdToWebProduct.put(15, new WebProduct(ChatColor.LIGHT_PURPLE + "Ice Cream(Pet Skin)", 1));
-        productIdToWebProduct.put(16, new WebProduct(ChatColor.DARK_AQUA + "Vex(Pet Skin)", 1));
-        productIdToWebProduct.put(17, new WebProduct(ChatColor.RED + "Baby Dragon(Pet Skin)", 1));
+        productIdToWebProduct.put(12, new WebProduct(ChatColor.YELLOW + "Bee(Pet Skin)"));
+        productIdToWebProduct.put(13, new WebProduct(ChatColor.GOLD + "Red Fox(Pet Skin)"));
+        productIdToWebProduct.put(14, new WebProduct(ChatColor.AQUA + "Snow Fox(Pet Skin)"));
+        productIdToWebProduct.put(15, new WebProduct(ChatColor.LIGHT_PURPLE + "Ice Cream(Pet Skin)"));
+        productIdToWebProduct.put(16, new WebProduct(ChatColor.DARK_AQUA + "Vex(Pet Skin)"));
+        productIdToWebProduct.put(17, new WebProduct(ChatColor.RED + "Baby Dragon(Pet Skin)"));
 
-        productIdToWebProduct.put(18, new WebProduct(ChatColor.GOLD + "Skin Chest x1", 1));
-        productIdToWebProduct.put(19, new WebProduct(ChatColor.GOLD + "Skin Chest x2", 1));
-        productIdToWebProduct.put(20, new WebProduct(ChatColor.GOLD + "Skin Chest x5", 1));
+        productIdToWebProduct.put(18, new WebProduct(ChatColor.GOLD + "Skin Chest x1"));
+        productIdToWebProduct.put(19, new WebProduct(ChatColor.GOLD + "Skin Chest x2"));
+        productIdToWebProduct.put(20, new WebProduct(ChatColor.GOLD + "Skin Chest x5"));
 
-        productIdToWebProduct.put(21, new WebProduct(ChatColor.LIGHT_PURPLE + "Experience Boost", 1));
-        productIdToWebProduct.put(22, new WebProduct(ChatColor.YELLOW + "Loot Boost", 1));
-        productIdToWebProduct.put(23, new WebProduct(ChatColor.AQUA + "Enchant Boost", 1));
-        productIdToWebProduct.put(24, new WebProduct(ChatColor.GREEN + "Gather Boost", 1));
+        productIdToWebProduct.put(21, new WebProduct(ChatColor.LIGHT_PURPLE + "Experience Boost x1"));
+        productIdToWebProduct.put(22, new WebProduct(ChatColor.LIGHT_PURPLE + "Experience Boost x2"));
+        productIdToWebProduct.put(23, new WebProduct(ChatColor.LIGHT_PURPLE + "Experience Boost x5"));
+        productIdToWebProduct.put(24, new WebProduct(ChatColor.YELLOW + "Loot Boost x1"));
+        productIdToWebProduct.put(25, new WebProduct(ChatColor.YELLOW + "Loot Boost x2"));
+        productIdToWebProduct.put(26, new WebProduct(ChatColor.YELLOW + "Loot Boost x5"));
+        productIdToWebProduct.put(27, new WebProduct(ChatColor.AQUA + "Enchant Boost x1"));
+        productIdToWebProduct.put(28, new WebProduct(ChatColor.AQUA + "Enchant Boost x2"));
+        productIdToWebProduct.put(29, new WebProduct(ChatColor.AQUA + "Enchant Boost x5"));
+        productIdToWebProduct.put(30, new WebProduct(ChatColor.GREEN + "Gather Boost x1"));
+        productIdToWebProduct.put(31, new WebProduct(ChatColor.GREEN + "Gather Boost x2"));
+        productIdToWebProduct.put(32, new WebProduct(ChatColor.GREEN + "Gather Boost x5"));
 
     }
 

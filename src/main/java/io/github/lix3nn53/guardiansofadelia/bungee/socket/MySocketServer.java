@@ -2,9 +2,7 @@ package io.github.lix3nn53.guardiansofadelia.bungee.socket;
 
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOServer;
-import io.github.lix3nn53.guardiansofadelia.bungee.BungeeUtils;
 import io.github.lix3nn53.guardiansofadelia.bungee.GuardiansOfAdeliaBungee;
-import net.md_5.bungee.api.ChatColor;
 
 public class MySocketServer {
 
