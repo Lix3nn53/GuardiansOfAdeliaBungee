@@ -1,6 +1,7 @@
 package io.github.lix3nn53.guardiansofadelia.bungee;
 
 import io.github.lix3nn53.guardiansofadelia.bungee.socket.WebResponse;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.event.PluginMessageEvent;
@@ -8,10 +9,7 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class ChannelListener  implements Listener {
 
@@ -34,6 +32,22 @@ public class ChannelListener  implements Listener {
 
                     ServerInfo server = ProxyServer.getInstance().getPlayer(e.getReceiver().toString()).getServer().getInfo(); //source server of request
                     responses.put(server, webResponse);
+                } else if (subchannel.equalsIgnoreCase("premiumBoostActivate")) {
+                    //activate boost in all servers
+                    String boostString = in.readUTF();
+
+                    List<String> args = new ArrayList<>();
+                    args.add(boostString);
+
+                    Map<String, ServerInfo> servers = ProxyServer.getInstance().getServers();
+
+                    for (String serverName : servers.keySet()) {
+                        if (!serverName.contains("rpg")) continue;
+
+                        sendToBukkit(subchannel, args, servers.get(serverName));
+                    }
+
+                    BungeeUtils.broadcastMessage(ChatColor.AQUA + "Activated boost: " + boostString + " across all servers for 40 minutes.");
                 }
             } catch (IOException e1) {
                 e1.printStackTrace();
