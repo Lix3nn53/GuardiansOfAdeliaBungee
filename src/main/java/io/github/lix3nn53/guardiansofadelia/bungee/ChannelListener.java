@@ -13,6 +13,7 @@ import java.util.*;
 
 public class ChannelListener  implements Listener {
 
+    private static Set<ServerInfo> currentlyListening = new HashSet<>();
     private static HashMap<ServerInfo, Object> responses = new HashMap<>();
 
     @EventHandler
@@ -57,13 +58,18 @@ public class ChannelListener  implements Listener {
     }
 
     public synchronized Object sendThenGet(String subchannel, List<String> args, ServerInfo server) {  // here you can add parameters (e.g. String table, String column, ...)
+        if (currentlyListening.contains(server)) return null;
+
+        currentlyListening.add(server);
+
         sendToBukkit(subchannel, args, server);
 
         int i = 0;
         while (!responses.containsKey(server)) {
             try {
-                wait(100L);
+                wait(2000L);
             } catch (InterruptedException e) {
+                currentlyListening.remove(server);
                 return null;
             }
 
@@ -74,9 +80,11 @@ public class ChannelListener  implements Listener {
         if (responses.containsKey(server)) {
             Object o = responses.get(server);
             responses.remove(server);
+            currentlyListening.remove(server);
             return o;
         }
 
+        currentlyListening.remove(server);
         return null;
     }
 
