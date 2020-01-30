@@ -60,16 +60,17 @@ public class RequestHandler {
     public static WebResponse sendWebPurchaseToRPG(WebPurchase webPurchase) {
         int productId = webPurchase.getProductId();
         int payment = webPurchase.getPayment();
-        String minecraftUsername = webPurchase.getMinecraftUsername();
+        String minecraftUuidNoDashes = webPurchase.getMinecraftUuid();
+        UUID minecraftUUID = getUUIDFromString(minecraftUuidNoDashes);
 
         List<String> messages = new ArrayList<>();
         messages.add(String.valueOf(productId));
         messages.add(String.valueOf(payment));
-        messages.add(minecraftUsername);
+        messages.add(minecraftUUID.toString());
 
         ServerInfo serverInfo = ProxyServer.getInstance().getServerInfo(mainServerForRequests); //default server
 
-        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(minecraftUsername);
+        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(minecraftUUID);
         if (player != null) {
             serverInfo = player.getServer().getInfo(); //the server player is on
         }
@@ -77,15 +78,33 @@ public class RequestHandler {
         WebResponse webResponse = (WebResponse) GuardiansOfAdeliaBungee.channelListener.sendThenGet("webPurchase", messages, serverInfo);
 
         if (webResponse == null) {
-            return new WebResponse(false, "There must be at least 1 player online on GameServer-1 OR you must be online on any GameServer.", minecraftUsername, productId);
+            return new WebResponse(false, "There must be at least 1 player online on GameServer-1 OR you must be online on any GameServer.", minecraftUuidNoDashes, productId);
         }
 
         if (webResponse.isSuccess()) {
             WebProduct webProduct = productIdToWebProduct.get(productId);
-            BungeeUtils.broadcastMessage(ChatColor.GOLD + "Thanks for your support! " + ChatColor.WHITE + webPurchase.getMinecraftUsername() + ChatColor.GRAY + " bought "
+            BungeeUtils.broadcastMessage(ChatColor.GOLD + "Thanks for your support! " + ChatColor.WHITE + webPurchase.getMinecraftUuid() + ChatColor.GRAY + " bought "
                     + webProduct.getProductName() + ChatColor.GRAY + " from web-store!");
         }
 
         return webResponse;
+    }
+
+    private static UUID getUUIDFromString(String uuid) {
+        if(uuid.length() == 32) {
+            StringBuilder builder = new StringBuilder(36);
+            builder.append(uuid, 0, 8);
+            builder.append('-');
+            builder.append(uuid, 8, 12);
+            builder.append('-');
+            builder.append(uuid, 12, 16);
+            builder.append('-');
+            builder.append(uuid, 16, 20);
+            builder.append('-');
+            builder.append(uuid, 20, 32);
+            return UUID.fromString(builder.toString());
+        } else {
+            return UUID.fromString(uuid);
+        }
     }
 }
