@@ -27,9 +27,10 @@ public class ChannelListener  implements Listener {
                     boolean success = (in.readUTF()).equals("true");
                     String message = in.readUTF();
                     String minecraftUuid = in.readUTF();
+                    String minecraftUsername = in.readUTF();
                     int productId = Integer.parseInt(in.readUTF());
 
-                    WebResponse webResponse = new WebResponse(success, message, minecraftUuid, productId);
+                    WebResponse webResponse = new WebResponse(success, message, minecraftUuid, minecraftUsername, productId);
 
                     ServerInfo server = ProxyServer.getInstance().getPlayer(e.getReceiver().toString()).getServer().getInfo(); //source server of request
                     responses.put(server, webResponse);

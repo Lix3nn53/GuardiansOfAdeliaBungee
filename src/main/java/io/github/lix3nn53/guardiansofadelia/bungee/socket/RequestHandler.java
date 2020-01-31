@@ -78,12 +78,12 @@ public class RequestHandler {
         WebResponse webResponse = (WebResponse) GuardiansOfAdeliaBungee.channelListener.sendThenGet("webPurchase", messages, serverInfo);
 
         if (webResponse == null) {
-            return new WebResponse(false, "There must be at least 1 player online on GameServer-1 OR you must be online on any GameServer.", minecraftUuidNoDashes, productId);
+            return new WebResponse(false, "There must be at least 1 player online on GameServer-1 OR you must be online on any GameServer.", minecraftUuidNoDashes, "NULL", productId);
         }
 
         if (webResponse.isSuccess()) {
             WebProduct webProduct = productIdToWebProduct.get(productId);
-            BungeeUtils.broadcastMessage(ChatColor.GOLD + "Thanks for your support! " + ChatColor.WHITE + webPurchase.getMinecraftUuid() + ChatColor.GRAY + " bought "
+            BungeeUtils.broadcastMessage(ChatColor.GOLD + "Thanks for your support! " + ChatColor.WHITE + webResponse.getMinecraftUsername() + ChatColor.GRAY + " bought "
                     + webProduct.getProductName() + ChatColor.GRAY + " from web-store!");
         }
 
